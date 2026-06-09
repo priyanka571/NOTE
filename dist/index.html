@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <header class="">
+        <div id="nav" class=" flex justify-between items-center ml-10 mt-2 mr-10 py-2">
+            <h3>MINO</h3>
+            <h1 class="font-bold">MY NOTES</h1>
+
+            <input
+                class="w-72 px-4 py-2 bg-white border border-gray-300rounded-xl shadow-sm outline-none text-gray-700 placeholder-gray-400 transition-all duration-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:shadow-lg "
+                type="text" placeholder="Search">
+            <div class="relative group">
+
+                <!-- USER ICON -->
+                <img  id="userBtn" class="w-9 h-9 cursor-pointer"
+                    src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" />
+
+                <!-- DROPDOWN -->
+                <div id="dropdown" class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg hidden group-hover:block z-50">
+
+                    <p id="usernameText" class="px-4 py-2 text-sm text-gray-600 border-b">
+                        Guest
+                    </p>
+
+                    <button class="w-full text-left px-4 py-2 hover:bg-gray-100">
+                        Login
+                    </button>
+
+                    <button class="w-full text-left px-4 py-2 hover:bg-gray-100">
+                        Sign Up
+                    </button>
+
+                    <button class="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 hidden" id="logoutBtn">
+                        Logout
+                    </button>
+
+                </div>
+            </div>
+
+           
+            <!-- <div id="userBox"></div> -->
+
+
+        </div>
+
+    </header>
+    <main>
+        <div class="bg-gray-100 w-full h-screen flex justify-between ">
+            <div class="w-1/6 bg-white ">
+                <ul class="mt-10 space-y-3 px-4">
+                    <li
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 hover:translate-x-2 transition-all duration-300">
+                        Add New</li>
+                    <li
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 hover:translate-x-2 transition-all duration-300">
+                        Calendar </li>
+                    <li
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 hover:translate-x-2 transition-all duration-300">
+                        Archive </li>
+                    <li
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 hover:translate-x-2 transition-all duration-300">
+                        Trash </li>
+                </ul>
+            </div>
+            <div class="flex-1 flex flex-col items-center justify-center">
+                <h1
+                    class=" text-6xl mb-8 font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
+                    Welcome to Mino Notes</h1>
+                <div class="flex gap-4">
+                    <button
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition">Login</button>
+                    <button
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition">SignUp</button>
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+    <script src="app.js
+"></script>
+</body>
+
+</html>
