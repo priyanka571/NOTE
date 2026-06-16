@@ -7,16 +7,21 @@
     <title>Document</title>
     <link rel="stylesheet" href="../src/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css" rel="stylesheet">
 </head>
 
 <body>
     <header class="">
-        <div id="nav" class=" flex justify-between items-center ml-10 mt-2 mr-10 py-2">
-            <h3>MINO</h3>
-            <h1 class="font-bold">MY NOTES</h1>
+        <!-- <div id="nav" class=" flex justify-between items-center ml-10 mt-2 mr-10 py-2"> -->
+        <div id="nav" class="flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center px-4 sm:px-10 mt-2">
+            <h3 class="text-2xl text-blue-500 font-bold">MINO</h3>
+            <!-- <h1 id="myNotes" class="font-bold">MY NOTES</h1> -->
+            <button id="myNotes"
+                class=" flex items-center gap-3 px-4 py-2 rounded-xl cursor-pointer text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 ">My
+                Notes</button>
 
             <input id="searchInput"
-                class="w-72 px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm outline-none text-gray-700 placeholder-gray-400 transition-all duration-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:shadow-lg "
+                class="w-full sm:w-72 px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm outline-none text-gray-700 placeholder-gray-400 transition-all duration-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:shadow-lg "
                 type="text" placeholder="Search" />
             <div class="relative group">
 
@@ -39,18 +44,18 @@
         <div class="bg-gray-100 w-full min-h-screen flex justify-between ">
             <!-- <div class="w-1/6 bg-white/60   backdrop-blur-xl border-white/30 shadow-lg"> -->
             <div
-                class="w-1/6 relative overflow-hidden bg-white/600 backdrop-blur-xl border-r border-white/30 shadow-lg">
+                class="w-full sm:w-1/6 relative overflow-hidden bg-white/600 backdrop-blur-xl border-r border-white/30 shadow-lg">
                 <ul class="mt-10 space-y-3 px-4">
                     <li id="addNoteBtn"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 hover:translate-x-2 transition-all duration-300">
                         Add New</li>
-                    <li
+                    <li id="calendarBtn"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 hover:translate-x-2 transition-all duration-300">
                         Calendar </li>
-                    <li
+                    <!-- <li
                         class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 hover:translate-x-2 transition-all duration-300">
-                        Archive </li>
-                    <li
+                        Archive </li> -->
+                    <li id="trash"
                         class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 hover:translate-x-2 transition-all duration-300">
                         Trash </li>
                     <li onclick="logout()"
@@ -58,9 +63,10 @@
                         LogOut</li>
                 </ul>
             </div>
-            <div class="flex-1 flex flex-col items-center justify-center">
+
+            <div class="flex-1 flex flex-col  items-center justify-center">
                 <h1 id="welcomeTxt"
-                    class=" text-6xl mb-8 font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
+                    class=" text-2xl sm:text-6xl mb-8 font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
                     Welcome to Mino Notes</h1>
                 <div class="flex gap-4">
                     <button id="loginBtn"
@@ -68,9 +74,20 @@
                     <button id="signupBtn"
                         class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition">SignUp</button>
                 </div>
+                <div id="calendar" class="hidden relative bg-white rounded-2xl shadow-lg border border-gray-200 max-w-4xl mx-auto p-4">
+                     <button id="closeCalendar" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg font-bold">
+                       X 
+                    </button>
+                    <div 
+                        class="hidden relative p-4 bg-white rounded-2xl shadow-lg border border-gray-200 max-w-4xl mx-auto">
+                    </div>
+                   
+                    
+                </div>
+
                 <div id="authModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
 
-                    <div class="bg-white p-6 rounded-xl w-96">
+                    <div class="bg-white p-6 rounded-xl w-[90%] sm:w-96">
                         <h2 id="modalTitle" class="text-2xl font-bold mb-4">Login</h2>
 
                         <input id="username" type="text" placeholder="Username" class="w-full border p-2 mb-3 rounded">
@@ -88,26 +105,26 @@
                     </div>
                 </div>
                 <div>
-                    <!-- <img class=" fixed bottom-6 right-6 w-25 h-25" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAe1BMVEX///8AAADj4+Py8vLt7e0zMzMdHR339/e3t7eCgoKwsLBgYGD6+vra2tr4+Pjg4ODNzc1oaGg7OztJSUlTU1PMzMwtLS2BgYHo6OicnJxxcXG/v7/U1NQlJSVzc3MXFxekpKSrq6uLi4tXV1dERESXl5cPDw8+Pj5NTU3bsP9jAAAE8klEQVR4nO2d60LiMBBGw02KlEvlqgXkLu//hIu7NEXRtsxMktH9zl9tmENLOknTjDEAAAAAAAAAAAAAAAAAAAAAAADA7yZuFxGHDo9FPIi2yW7fKuDp1F0dJvPQkdJYdJ5qFTmenuuhw72bqLLehe4wdMh3kS7v9Htn3AsddmXqO4LfO4cf0u9ERL8zo0Ho4KuwpQvWaq+T0OGX88IRPJOGFijjk2CyTgf1IhbRYfzxEOVnsfNBr2KwcTS6Pkx1l/p4FejLPb3GZJ8f2Go4i4/NIA9zeefvKX7Oj125iU6Ckw1yfH+qOXnV39tsbIi7NuHwXn4BUA73QMOmamNabpIrHoRDE8L+kpbUriLPhlSOp9qtLLwFuQ17N+0KBiZGmkU3o7cxP2aNaBxL2e+/yWhknTXyJBaXGHEWW4fTSt9e6hupwMQYZqHxBkD2Wn/lXApOOFwiGzFHsXb0vJWJS45EKLA889OWgU8vcbEzrpnWO4bYN9+wJ3HNj0qSS1RHfjaysYr01MEB2Tf/wO8C43ysqGliStDQTKzhUVFqI2l4PRei58Yvath/yxW7Wm4aooamXrviRUeHI2toFteKteU2rQef8Bc2zPNTItN9so3qfZlg/iJtaCbHQoNqtDoLsXMvbmgGb4XBV2X0KDStJW9o2rPC0CvTikTCcWB4vlKnhaFXhjB7e4sTQ8LD8m8QOI2ODI0ZrihPzG/gj6edGZ5/j8Pn5MS+XlfcTtWh4b/254WPIW/oTdafTv4LNwLHhhTakw/Pa1mTgDoNz8yTK8VHVlNKDc/p30OuyBpQqzU0zXydwInTjl5D08+vVM54WrGhie1ZJD/3M7oNTcM+QH9mNKLZMB9QT+kDDd2G+UQ6fUpeuWGTn9koN8wnKMkTG9oN7ToP8hyzdsM4WzpH7k21G9plrwm1AfWG2fTklNqAekP7Q6Q2oN7QLtWhNqDesJmNoqipKQyDA8NSYBgcGJYCw+DAsBQYBgeGpcAwODAsBYbBgWEpMAwODEuBYXBgWAoMgwPDUmAYHBiWAsPg/EeG1HVf6g1N9l4D9Xj9hpcNKX7veprLwi/6Dk0/wND01hvGy5o/wZCHGsPB0NU7LToMm+8bh7BfAPoSHYb9f69HjV20rcMw2/PPxdvfOgyz5dy893++RodhB4YMYOgHGHKAoR9gyAGGfoAhBxj6AYYcYOgHGHKAoR+yF0Vl9r76iG/DeJN0b8l2kt5/8bcVU9uz4Zyyq9KJNY/q2TApVPkO1nZYfg3nJMFai/OZfg3rhSLfwqqb4dew8VBo8h1vrA+9NHL0UwSPVjaL15tmrXjaFJeyayRj+513xPZkr0gvjW5Iu5cgZrd/i1Lu9pBS++qzcJm12SozIxeNV8WpoVB9Cx5ODWVqlDBxaihTZ4aJW0OJWkFc3Bq2bbofbg91t4Z5JaOHYOX9HBuy667xcWxoNjY/ItXOE8C1Ia/+oQTODRk1LGVwbkivQyqEe0NaLVn5j3do+HmKqLQe8J2U5Es+DNk1nUvYF+7s6MWQV5e7AkUZkx9DTm31KhRt7ejJ0NR3hSEyWSowPI8zRCo2fE3R5pX+DOVKb9xSNMLO6pn5yagWHSeSrcIbxurv/zCnDasTD9JOMt63BNnPSu6I63Fr5zthjNuCVBiWKa3pDQAAAAAAAAAAAAAAAAAAAAAAAAjzB+WfQY7/URnNAAAAAElFTkSuQmCC" alt=""> -->
-                    <!-- <button id="addNoteBtn"  class=" fixed top-20 right-6 bg-blue-500 text-white px-4 py-2 rounded-lg mb-4 hidden">
-                    + Add Note
-                </button> -->
+
                 </div>
 
 
                 <div id="notesContainer"
-                    class=" hidden w-full flex flex-wrap gap-4 justify-start p-4 overflow-y-auto max-h-[calc(100vh-120px)]">
+                    class=" hidden w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 justify-start p-4 overflow-y-auto max-h-[calc(100vh-120px)]">
                 </div>
                 <div id="noteModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
 
-                    <div class="bg-white p-6 rounded-xl w-96">
+                    <div class="bg-white p-6 rounded-xl w-[90%] sm:w-96">
 
                         <h2 class="text-xl font-bold mb-3">Add Note</h2>
 
-                        <input id="noteTitle" class="w-full border p-2 mb-3 rounded" placeholder="Title">
-
-                        <textarea id="noteDesc" class="w-full border p-2 mb-3 rounded"
+                        <!-- <input id="noteTitle" class="w-full border p-2 mb-3 rounded" placeholder="Title"> -->
+                        <textarea id="noteTitle" class="w-full border p-2 mb-3 rounded" placeholder="Title"
+                            rows="1"></textarea>
+                        <!-- <div class="max-w-lg"> -->
+                        <textarea id="noteDesc" class="w-full border p-2 mb-3 rounded line-clamp-4"
                             placeholder="Description"></textarea>
+                        <!-- </div> -->
 
                         <button id="saveNoteBtn" class="w-full bg-blue-500 text-white py-2 rounded">
                             Save Note
@@ -115,29 +132,13 @@
 
                     </div>
                 </div>
-                <!-- <div id="viewNoteModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
 
-                    <div class="bg-white w-[500px] max-w-[90%] rounded-2xl p-6 shadow-xl">
-
-                        <h2 id="viewTitle" class="text-2xl font-bold mb-3"></h2>
-
-                        <div id="viewDate" class="text-sm text-gray-500 mb-4"></div>
-
-                        <p id="viewDesc" class="text-gray-700 whitespace-pre-wrap"></p>
-
-                        <button onclick="closeViewNote()"
-                            class="mt-6 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-                            Close
-                        </button>
-
-                    </div>
-
-                </div> -->
 
 
                 <div id="viewNoteModal"
                     class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
-                    <div id="popupCard" class="relative w-[650px] max-w-[92%] rounded-3xl shadow-2xl overflow-hidden bg-blue-50 transition-all duration-700">
+                    <div id="popupCard"
+                        class="relative w-[650px] max-w-[92%] rounded-3xl shadow-2xl overflow-hidden bg-blue-50 transition-all duration-700">
 
                         <!-- Gradient Header -->
                         <!-- <div class="h-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div> -->
@@ -175,6 +176,7 @@
         </div>
     </main>
     <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
     <script src="../src/app.js"></script>
 </body>
 
